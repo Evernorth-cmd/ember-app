@@ -1218,6 +1218,11 @@ body.meetup-mode #chatInput{font-size:16px!important;line-height:1.3!important;m
 body.meetup-mode #chatSendBtn{min-height:44px!important;touch-action:manipulation!important;}
 @media(max-width:600px){body.meetup-mode .builder{padding:16px!important}.signature-card{min-height:calc(100dvh - 18px)!important}.knock-key{touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important;min-width:64px!important;min-height:64px!important;}}
 </style>
+<style id="ember-chat-fix-final">
+body.meetup-mode .chat-msg{color:#4A2E1A!important;background:rgba(255,255,255,.82)!important;}
+body.meetup-mode #chatInput{color:#4A2E1A!important;background:#fff!important;-webkit-text-fill-color:#4A2E1A!important;caret-color:#D96A28!important;}
+body.meetup-mode #chatInput::placeholder{color:#8A6D55!important;opacity:1!important;}
+</style>
 </head>
 <body>
 <div class="k-bg-label a"><span>안녕 · HI</span></div>
@@ -1792,7 +1797,7 @@ function markNewLocation(lat, lon, key){
   currentTargetId = null;
   currentChatPartner = null;
   document.getElementById('chatPanel')?.classList.remove('show');
-  const cm = document.getElementById('chatMessages'); if(cm) cm.innerHTML='';
+  closeChatChannel(); const cm = document.getElementById('chatMessages'); if(cm) cm.innerHTML='';
   const ci = document.getElementById('chatInput'); if(ci) ci.value='';
   if(USE_BACKEND){
     resetKnockSubscription();
@@ -2136,7 +2141,9 @@ function lockAppearanceFields(locked){
   if(updateBtn) updateBtn.remove();
 }
 const COLORS = ['#3DA9FC','#E8A94C','#33D69F','#FF5C6C'];
-let currentTargetId = null, sequence = [], userSeq = [], timerInterval = null, timeLeft = 20, knockInputLocked = false;
+let currentTargetId = null, activeConnectionPartner = null, sequence = [], userSeq = [], timerInterval = null, timeLeft = 20, knockInputLocked = false;
+let chatChannel = null;
+function closeChatChannel(){ if(chatChannel){ try{ sb.removeChannel(chatChannel); }catch(_e){} chatChannel=null; } }
 const signatureColors = ['#3DA9FC','#E8A94C','#33D69F','#FF5C6C'];
 function openPuzzle(personId){
   currentTargetId = personId;
@@ -2150,7 +2157,7 @@ function closeSignatureKnock(){
 document.getElementById('signatureKnockClose').onclick = closeSignatureKnock;
 document.getElementById('signatureKnockCancel').onclick = closeSignatureKnock;
 function startSignatureKnock(){
-  sequence = Array.from({length:3}, ()=>Math.floor(Math.random()*4));
+  sequence = Array.from({length:4}, ()=>Math.floor(Math.random()*4));
   userSeq = []; timeLeft = 20; knockInputLocked = false;
   const row=document.getElementById('signatureSeqRow');
   row.innerHTML=sequence.map((_,i)=>`<div class="knock-dot" id="sigDot${i}">✦</div>`).join('');
@@ -2217,6 +2224,7 @@ function finishPuzzle(success){
 }
 function showSignatureMatch(personId){
   currentTargetId=personId;
+  activeConnectionPartner=personId;
   document.getElementById('signatureMatchOverlay').classList.add('show');
 }
 function closeSignatureMatch(){document.getElementById('signatureMatchOverlay').classList.remove('show')}
@@ -2312,7 +2320,14 @@ function subscribeToKnocks(){
       if(ignoredKnockers.has(fromId)) return;
       incomingKnockers.add(fromId);
       renderRoom();
-      showToast('Someone in the room just knocked ✦');
+      // If this is the return knock, both sides should immediately enter the same connection state.
+      sb.from('knocks').select('id,status')
+        .eq('from_session', mySessionId).eq('to_session', fromId).eq('venue_id', venueId())
+        .in('status',['pending','accepted']).limit(1)
+        .then(({data})=>{
+          if(data && data.length) showSignatureMatch(fromId);
+          else showToast('Someone in the room just knocked ✦');
+        });
     })
     .subscribe();
 }
@@ -2366,26 +2381,16 @@ async function submitIceAnswer(qIdx, choice){
     session_id: mySessionId, partner_session: iceTarget, venue_id: venueId(), question_idx: qIdx, choice
   }, { onConflict: 'session_id,partner_session,question_idx' });
 }
-async function waitForPartnerAnswer(qIdx, maxMs=7000){
-  const start = Date.now();
-  while(Date.now() - start < maxMs){
-    const { data } = await sb.from('icebreaker_answers')
-      .select('choice')
-      .eq('session_id', iceTarget).eq('partner_session', mySessionId).eq('question_idx', qIdx)
-      .maybeSingle();
-    if(data) return data.choice;
-    await new Promise(r=>setTimeout(r, 500));
-  }
-  return null;
-}
 function showIceQuestion(){
   const area = document.getElementById('iceQuestionArea');
-  document.getElementById('iceSub').textContent = "Quick round before you chat — pick fast, they can't see your answer yet.";
+  document.getElementById('iceSub').textContent = "Quick round before you chat — your answer is yours; you don't need to wait for them.";
   if(iceIdx >= ICE_QUESTIONS.length){
-    area.innerHTML = `<div class="ice-result">🔓 Chemistry unlocked — ${iceMatches}/${ICE_QUESTIONS.length} matched ✨</div>
+    area.innerHTML = `<div class="ice-result">🔓 Compatibility round complete ✨</div>
       <button class="ice-cta" id="iceContinue">Start chatting</button>`;
     document.getElementById('iceContinue').onclick = ()=>{
       document.getElementById('iceOverlay').classList.remove('show');
+      activeConnectionPartner = iceTarget;
+      currentTargetId = iceTarget;
       openChat(iceTarget);
     };
     return;
@@ -2401,71 +2406,63 @@ function showIceQuestion(){
       area.querySelectorAll('.ice-opt').forEach(o=>o.onclick=null);
       opt.classList.add('picked');
       const myChoice = opt.dataset.pick;
-      if(USE_BACKEND){
-        await submitIceAnswer(iceIdx, myChoice);
-        document.getElementById('iceSub').textContent = 'Waiting for them to answer…';
-        const theirChoice = await waitForPartnerAnswer(iceIdx);
-        const opts = area.querySelectorAll('.ice-opt');
-        if(theirChoice === null){
-          document.getElementById('iceSub').textContent = "Didn't hear back in time — moving on.";
-        } else {
-          const matched = theirChoice === myChoice;
-          opts.forEach(o=>{
-            if(o === opt) o.classList.add(matched ? 'matched' : 'mismatched');
-            else if(o.dataset.pick === theirChoice) o.classList.add(matched ? 'matched' : 'mismatched');
-          });
-          if(matched) iceMatches++;
-        }
-        setTimeout(()=>{ iceIdx++; showIceQuestion(); }, 700);
-      } else {
-        // mock/local demo only: simulate the other person's pick randomly
-        const theyPickedIdx = Math.floor(Math.random() * q.options.length);
-        const matched = String(theyPickedIdx) === myChoice;
-        setTimeout(()=>{
-          const opts = area.querySelectorAll('.ice-opt');
-          opts.forEach(o=>{
-            if(o === opt) o.classList.add(matched ? 'matched' : 'mismatched');
-            else if(o.dataset.pick === String(theyPickedIdx)) o.classList.add(matched ? 'matched' : 'mismatched');
-          });
-          if(matched) iceMatches++;
-          setTimeout(()=>{ iceIdx++; showIceQuestion(); }, 700);
-        }, 500);
-      }
+      // Submit in the background when available. Never block this user's progress on the other phone.
+      if(USE_BACKEND){ submitIceAnswer(iceIdx, myChoice).catch(()=>{}); }
+      const pickedQuestion = iceIdx;
+      setTimeout(()=>{
+        if(pickedQuestion !== iceIdx) return;
+        iceIdx++;
+        showIceQuestion();
+      }, 300);
     };
   });
 }
 
+
 let currentChatPartner = null;
-const mockThread = []; // local-only, in-memory only
+const mockThread = [];
+
+function chatChannelName(personId){
+  const pair=[String(mySessionId),String(personId)].sort().join('__');
+  const room=String(venueId()).replace(/[^a-zA-Z0-9_-]/g,'_');
+  return ('ember-chat-'+pair+'-'+room).slice(0,240);
+}
 
 async function openChat(personId){
-  // Chat is ephemeral and belongs only to the current room-session pair.
-  // If this is a later appearance/session, there is no remembered connection.
-  if(!personId || !currentTargetId || String(personId) !== String(currentTargetId)){
-    showToast('This connection is not active anymore. Send a new Knock.');
+  if(!personId) return;
+  const allowed = activeConnectionPartner && String(personId) === String(activeConnectionPartner);
+  if(!allowed){
+    showToast('Finish the mutual Knock first.');
     return;
   }
-  currentChatPartner = personId;
+  currentChatPartner = String(personId);
+  currentTargetId = personId;
   const panel = document.getElementById('chatPanel');
   const msgBox = document.getElementById('chatMessages');
   msgBox.innerHTML = '';
 
+  closeChatChannel();
   if(USE_BACKEND){
-    const { data } = await sb.from('presence').select('appearance').eq('session_id', personId).single();
+    const { data } = await sb.from('presence').select('appearance').eq('session_id', personId).eq('venue_id',venueId()).maybeSingle();
     const a = data ? data.appearance : {};
     document.getElementById('chatWho').innerHTML = 'Connected with: ' + (a.topColor||'someone') + ' ' + (a.topType||'').toLowerCase();
+    chatChannel = sb.channel(chatChannelName(personId));
+    chatChannel.on('broadcast',{event:'message'}, payload=>{
+      const m=payload?.payload;
+      if(!m || String(m.from)===String(mySessionId) || String(m.to)!==String(mySessionId)) return;
+      appendMessage(String(m.body||''), false);
+    });
+    chatChannel.subscribe();
   } else {
     const p = MOCK_PEOPLE.find(x=>x.id===personId);
     document.getElementById('chatWho').innerHTML = 'Connected with: ' + (p?.topColor||'someone') + ' ' + (p?.topType||'').toLowerCase();
   }
 
-  // EMBER deliberately keeps conversation ephemeral. No message history is loaded
-  // and no message is written to Supabase. Messages live only in this open session.
   panel.classList.add('show');
   const input = document.getElementById('chatInput');
   if(input){
     input.disabled=false; input.readOnly=false; input.style.pointerEvents='auto'; input.tabIndex=0;
-    setTimeout(()=>{ input.focus({preventScroll:true}); input.click(); },80);
+    setTimeout(()=>{ input.focus({preventScroll:true}); },80);
   }
   panel.scrollIntoView({behavior:'smooth', block:'center'});
 }
@@ -2475,24 +2472,29 @@ function appendMessage(body, mine){
   const bubble = document.createElement('div');
   bubble.className = 'chat-msg';
   bubble.style.alignSelf = mine ? 'flex-end' : 'flex-start';
-  bubble.style.background = mine ? 'rgba(61,169,252,0.15)' : 'var(--panel-2)';
+  bubble.style.background = mine ? 'rgba(217,106,40,0.16)' : 'rgba(255,255,255,0.78)';
+  bubble.style.color = '#4A2E1A';
   bubble.textContent = body;
   box.appendChild(bubble);
   box.scrollTop = box.scrollHeight;
 }
 
 document.getElementById('chatSendBtn').addEventListener('click', sendChatMessage);
-document.getElementById('chatInput').addEventListener('keydown', (e)=>{ if(e.key === 'Enter') sendChatMessage(); });
+document.getElementById('chatInput').addEventListener('keydown', (e)=>{ if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); sendChatMessage(); } });
 async function sendChatMessage(){
   const input = document.getElementById('chatInput');
   const body = input.value.trim();
   if(!body || !currentChatPartner) return;
+  const to = String(currentChatPartner);
   input.value = '';
+  // Always show the sender's own message immediately.
   appendMessage(body, true);
-  // Intentionally not persisted. EMBER does not store chat messages.
+  if(USE_BACKEND && chatChannel){
+    try{
+      await chatChannel.send({type:'broadcast',event:'message',payload:{from:String(mySessionId),to,body,venue:venueId()}});
+    }catch(_e){ showToast('Message could not be delivered. Please try again.'); }
+  }
 }
-
-
 
 
 /* ============ APPEARANCE CONTROLS — restored classic layout ============ */
