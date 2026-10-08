@@ -1223,6 +1223,91 @@ body.meetup-mode .chat-msg{color:#4A2E1A!important;background:rgba(255,255,255,.
 body.meetup-mode #chatInput{color:#4A2E1A!important;background:#fff!important;-webkit-text-fill-color:#4A2E1A!important;caret-color:#D96A28!important;}
 body.meetup-mode #chatInput::placeholder{color:#8A6D55!important;opacity:1!important;}
 </style>
+<style id="ember-v20-polish">
+/* v20: compact chat composer + correctly aligned private note */
+body.meetup-mode .chat-panel{
+  width:min(100%,680px)!important;
+  max-width:680px!important;
+  box-sizing:border-box!important;
+  padding:14px!important;
+  border-radius:18px!important;
+}
+body.meetup-mode .chat-messages{max-height:180px!important;}
+body.meetup-mode .chat-compose{
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  width:100%!important;
+}
+body.meetup-mode #chatInput{
+  flex:1 1 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  height:44px!important;
+  min-height:44px!important;
+  max-height:44px!important;
+  padding:10px 13px!important;
+  border-radius:12px!important;
+  font-size:16px!important;
+  line-height:1.2!important;
+  box-sizing:border-box!important;
+}
+body.meetup-mode #chatSendBtn{
+  flex:0 0 72px!important;
+  width:72px!important;
+  height:44px!important;
+  min-height:44px!important;
+  padding:0 12px!important;
+  border-radius:12px!important;
+  box-sizing:border-box!important;
+}
+body.meetup-mode #chatEphemeralNote{
+  display:block!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:7px 0 0!important;
+  text-align:center!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  color:#8A6D55!important;
+}
+.ice-score-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  margin:14px 0 4px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid rgba(232,103,44,.22);
+  background:rgba(255,255,255,.65);
+}
+.ice-score-card span{
+  font-size:10px;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:#8A6D55;
+  font-weight:700;
+}
+.ice-score-card strong{
+  font-size:38px;
+  line-height:1;
+  color:#E8672C;
+  font-family:'Playfair Display',Georgia,serif;
+}
+.ice-score-card small{
+  max-width:280px;
+  font-size:10px;
+  line-height:1.45;
+  color:#8A6D55;
+  text-align:center;
+}
+@media(max-width:600px){
+  body.meetup-mode .chat-panel{padding:12px!important;}
+  body.meetup-mode #chatSendBtn{flex-basis:68px!important;width:68px!important;}
+}
+</style>
 </head>
 <body>
 <div class="k-bg-label a"><span>안녕 · HI</span></div>
@@ -1349,10 +1434,11 @@ body.meetup-mode #chatInput::placeholder{color:#8A6D55!important;opacity:1!impor
 <div class="chat-panel" id="chatPanel">
 <div class="who" id="chatWho"></div>
 <div id="chatMessages" style="max-height:220px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column; gap:6px;"></div>
-<div style="display:flex; gap:8px;">
-<input id="chatInput" placeholder="Say something… · not saved" autocomplete="off" autocapitalize="sentences" enterkeyhint="send" inputmode="text" style="flex:1; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--panel-2); color:var(--ink); font-size:16px; font-family:'Inter',sans-serif;" type="text"/>
-<button id="chatSendBtn" style="padding:10px 16px; border-radius:8px; border:none; background:var(--blue); color:#05070B; font-weight:700; cursor:pointer;">Send</button><div id="chatEphemeralNote" style="width:100%;font-size:10px;color:var(--ink-muted);margin-top:6px;text-align:center;">Private conversation · messages are not saved by EMBER · Returning later requires a new Knock</div>
+<div class="chat-compose">
+<input id="chatInput" placeholder="Say something…" autocomplete="off" autocapitalize="sentences" enterkeyhint="send" inputmode="text" type="text"/>
+<button id="chatSendBtn" type="button">Send</button>
 </div>
+<div id="chatEphemeralNote">Private conversation · messages are not saved by EMBER · Returning later requires a new Knock</div>
 </div>
 </div>
 </div>
@@ -2025,15 +2111,9 @@ async function renderRoom(){
     // If the user changed location while this query was in flight, discard the old room result.
     if(renderGeneration !== roomGeneration || renderVenue !== venueId()) return;
     const rawVisible = (data||[]).filter(r => !blockedIds.has(r.session_id));
-    // Keep the room visually clean: identical appearance descriptions are shown once.
-    // This prevents stale/test duplicates from turning the room into a repeated card grid.
-    const unique = new Map();
-    rawVisible.forEach(r=>{
-      const a = r.appearance || {};
-      const signature = describePerson(a).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
-      if(!unique.has(signature)) unique.set(signature,r);
-    });
-    const visible = [...unique.values()];
+    // Every live session is a real participant. Do not merge people just because
+    // they chose the same appearance details — each person must remain knockable.
+    const visible = rawVisible;
     document.getElementById('roomCount').textContent = rawVisible.length + (isVisibleInRoom ? 1 : 0);
     if(!visible.length){ grid.innerHTML = '<div class="empty">No one else has opted in here right now. Check back in a bit.</div>'; return; }
     const groups = {};
@@ -2141,22 +2221,28 @@ function lockAppearanceFields(locked){
   if(updateBtn) updateBtn.remove();
 }
 const COLORS = ['#3DA9FC','#E8A94C','#33D69F','#FF5C6C'];
-let currentTargetId = null, activeConnectionPartner = null, sequence = [], userSeq = [], timerInterval = null, timeLeft = 20, knockInputLocked = false;
+let currentTargetId = null, activeConnectionPartner = null, activeKnockTarget = null, pendingMutualPartners = new Set(), sequence = [], userSeq = [], timerInterval = null, timeLeft = 20, knockInputLocked = false;
 let chatChannel = null;
 function closeChatChannel(){ if(chatChannel){ try{ sb.removeChannel(chatChannel); }catch(_e){} chatChannel=null; } }
 const signatureColors = ['#3DA9FC','#E8A94C','#33D69F','#FF5C6C'];
 function openPuzzle(personId){
-  currentTargetId = personId;
+  const target = String(personId);
+  activeKnockTarget = target;
+  currentTargetId = target;
   document.getElementById('signatureKnockOverlay').classList.add('show');
-  startSignatureKnock();
+  startSignatureKnock(target);
 }
 function closeSignatureKnock(){
   document.getElementById('signatureKnockOverlay').classList.remove('show');
   clearInterval(timerInterval);
+  activeKnockTarget = null;
 }
 document.getElementById('signatureKnockClose').onclick = closeSignatureKnock;
 document.getElementById('signatureKnockCancel').onclick = closeSignatureKnock;
-function startSignatureKnock(){
+function startSignatureKnock(targetId){
+  // The target is captured for this specific game. Other users can knock
+  // simultaneously without changing which person this game belongs to.
+  activeKnockTarget = String(targetId || activeKnockTarget || currentTargetId || '');
   sequence = Array.from({length:4}, ()=>Math.floor(Math.random()*4));
   userSeq = []; timeLeft = 20; knockInputLocked = false;
   const row=document.getElementById('signatureSeqRow');
@@ -2205,16 +2291,22 @@ function handleSignatureTap(i){
 }
 function finishPuzzle(success){
   const status=document.getElementById('signatureKnockStatus');
+  const target = String(activeKnockTarget || currentTargetId || '');
+  if(!target) return;
   if(success){
     status.innerHTML='<strong>Knock sent.</strong> Quietly. ✦';
     emberQuietKnockSignal();
     if(USE_BACKEND){
-      setTimeout(async()=>{closeSignatureKnock();await sendKnockBackend(currentTargetId)},650); return;
+      setTimeout(async()=>{
+        closeSignatureKnock();
+        await sendKnockBackend(target);
+      },650);
+      return;
     }
-    knocked.add(currentTargetId); knockCount++;
+    knocked.add(target); knockCount++;
     setTimeout(()=>{
       closeSignatureKnock(); renderRoom();
-      if(Math.random()>.25) showSignatureMatch(currentTargetId);
+      if(Math.random()>.25) showSignatureMatch(target);
       else showToast('Knock sent — now let the moment breathe.');
     },800);
   } else {
@@ -2223,8 +2315,16 @@ function finishPuzzle(success){
   }
 }
 function showSignatureMatch(personId){
-  currentTargetId=personId;
-  activeConnectionPartner=personId;
+  const target = String(personId || '');
+  if(!target) return;
+  pendingMutualPartners.add(target);
+  // Never let a notification from another person hijack an active Knock game.
+  if(document.getElementById('signatureKnockOverlay')?.classList.contains('show')){
+    showToast('A mutual Knock is waiting. Finish your current Knock first. ✦');
+    return;
+  }
+  currentTargetId=target;
+  activeConnectionPartner=target;
   document.getElementById('signatureMatchOverlay').classList.add('show');
 }
 function closeSignatureMatch(){document.getElementById('signatureMatchOverlay').classList.remove('show')}
@@ -2286,6 +2386,7 @@ async function sendKnockBackend(toSessionId){
     .eq('from_session', target).eq('to_session', mySessionId).eq('venue_id', venueId())
     .in('status', ['pending','accepted']).limit(1);
   if(reverse && reverse.length){
+    pendingMutualPartners.add(target);
     showSignatureMatch(target);
   } else {
     showToast('Knock sent — quietly. Let the moment breathe. ✦');
@@ -2325,8 +2426,10 @@ function subscribeToKnocks(){
         .eq('from_session', mySessionId).eq('to_session', fromId).eq('venue_id', venueId())
         .in('status',['pending','accepted']).limit(1)
         .then(({data})=>{
-          if(data && data.length) showSignatureMatch(fromId);
-          else showToast('Someone in the room just knocked ✦');
+          if(data && data.length){
+            pendingMutualPartners.add(String(fromId));
+            showSignatureMatch(String(fromId));
+          } else showToast('Someone in the room just knocked ✦');
         });
     })
     .subscribe();
@@ -2377,16 +2480,58 @@ function openIcebreaker(personId){
 }
 document.getElementById('iceClose').onclick = ()=> document.getElementById('iceOverlay').classList.remove('show');
 async function submitIceAnswer(qIdx, choice){
-  return sb.from('icebreaker_answers').upsert({
-    session_id: mySessionId, partner_session: iceTarget, venue_id: venueId(), question_idx: qIdx, choice
-  }, { onConflict: 'session_id,partner_session,question_idx' });
+  if(!USE_BACKEND) return {data:null,error:null};
+  try{
+    return await sb.from('icebreaker_answers').upsert({
+      session_id: mySessionId, partner_session: iceTarget, venue_id: venueId(), question_idx: qIdx, choice
+    }, { onConflict: 'session_id,partner_session,venue_id,question_idx' });
+  }catch(e){ return {data:null,error:e}; }
+}
+async function getCompatibilityScore(){
+  const fallback = {score:null, answered:0, total:ICE_QUESTIONS.length};
+  if(!USE_BACKEND || !iceTarget) return fallback;
+  try{
+    const {data, error} = await sb.from('icebreaker_answers')
+      .select('session_id,question_idx,choice')
+      .eq('venue_id', venueId())
+      .in('session_id',[String(mySessionId),String(iceTarget)]);
+    if(error || !data) return fallback;
+    const mine = new Map(), theirs = new Map();
+    (data||[]).forEach(r=>{
+      const map = String(r.session_id)===String(mySessionId) ? mine : theirs;
+      map.set(Number(r.question_idx), String(r.choice));
+    });
+    let overlap=0, matches=0;
+    mine.forEach((choice,q)=>{
+      if(theirs.has(q)){
+        overlap++;
+        if(theirs.get(q)===choice) matches++;
+      }
+    });
+    return {score: overlap ? Math.round(matches/overlap*100) : null, answered:overlap, total:ICE_QUESTIONS.length};
+  }catch(e){ return fallback; }
+}
+async function refreshIceScore(){
+  const value=document.getElementById('iceScoreValue');
+  const detail=document.getElementById('iceScoreDetail');
+  if(!value) return;
+  const result=await getCompatibilityScore();
+  if(result.score===null){
+    value.textContent='—';
+    if(detail) detail.textContent='Your answers are saved for this room. The score appears when both sides have matching answers.';
+  }else{
+    value.textContent=result.score+'%';
+    if(detail) detail.textContent=`Based on ${result.answered} shared answer${result.answered===1?'':'s'}. You can keep chatting without waiting.`;
+  }
 }
 function showIceQuestion(){
   const area = document.getElementById('iceQuestionArea');
   document.getElementById('iceSub').textContent = "Quick round before you chat — your answer is yours; you don't need to wait for them.";
   if(iceIdx >= ICE_QUESTIONS.length){
     area.innerHTML = `<div class="ice-result">🔓 Compatibility round complete ✨</div>
+      <div class="ice-score-card"><span>Compatibility score</span><strong id="iceScoreValue">—</strong><small id="iceScoreDetail">Checking available answers…</small></div>
       <button class="ice-cta" id="iceContinue">Start chatting</button>`;
+    refreshIceScore();
     document.getElementById('iceContinue').onclick = ()=>{
       document.getElementById('iceOverlay').classList.remove('show');
       activeConnectionPartner = iceTarget;
