@@ -1163,7 +1163,7 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
 .exact-giraffe-brand{width:100%!important;margin:0!important;padding:0!important;line-height:0!important;background:transparent!important}
 .exact-giraffe-brand img{display:block!important;width:100%!important;height:auto!important;max-width:none!important;object-fit:contain!important;object-position:center top!important;margin:0!important;border:0!important;filter:drop-shadow(0 14px 22px rgba(98,57,31,.12))}
 body:not(.meetup-mode) .hero-copy,body.meetup-mode .hero-copy{display:none!important}
-.mode-switch{padding:10px 20px 6px!important}
+.mode-switch{display:none!important}
 .mode-btn{background:rgba(255,250,238,.88)!important;border-color:rgba(99,57,31,.14)!important;color:var(--g-brown)!important;box-shadow:0 8px 24px rgba(99,57,31,.07)!important}
 .mode-btn.meetup.active{background:linear-gradient(90deg,#FFE6A9,#FFD28A)!important;color:#63391F!important;border-color:rgba(230,160,68,.45)!important}
 .discover-link{color:#B96D2D!important}
@@ -1986,8 +1986,7 @@ async function renderRoom(){
     const cardHTML = r => `
       <div class="pcard" data-id="${r.session_id}">
         <div class="pcard-actions">
-          <span data-act="report" data-id="${r.session_id}" title="Report">⚠</span>
-          <span data-act="block" data-id="${r.session_id}" title="Block">🚫</span>
+          <span data-act="menu" data-id="${r.session_id}" title="More options">⋯</span>
           ${incomingKnockers.has(r.session_id) ? `<span data-act="ignore" data-id="${r.session_id}" title="Ignore">🔕</span>` : ''}
         </div>
         <div class="light ${knocked.has(r.session_id) ? 'red' : ''}"></div>
@@ -2005,6 +2004,11 @@ async function renderRoom(){
         e.stopPropagation();
         const id = icon.dataset.id;
         if(icon.dataset.act === 'ignore'){ await ignorePerson(id); return; }
+        if(icon.dataset.act === 'menu'){
+          const shouldReport = confirm('Block this person? Press Cancel to leave them visible.');
+          if(shouldReport) await blockPerson(id, false);
+          return;
+        }
         await blockPerson(id, icon.dataset.act === 'report');
       });
     });
@@ -2033,8 +2037,7 @@ async function renderRoom(){
   grid.innerHTML = visible.map(p => `
     <div class="pcard" data-id="${p.id}">
       <div class="pcard-actions">
-        <span data-act="report" data-id="${p.id}" title="Report">⚠</span>
-        <span data-act="block" data-id="${p.id}" title="Block">🚫</span>
+        <span data-act="menu" data-id="${p.id}" title="More options">⋯</span>
       </div>
       <div class="light ${knocked.has(p.id) ? 'red' : ''}"></div>
       <div class="desc">${describePerson(p)}</div>
@@ -2044,6 +2047,10 @@ async function renderRoom(){
     icon.addEventListener('click', (e)=>{
       e.stopPropagation();
       const id = parseInt(icon.dataset.id);
+      if(icon.dataset.act === 'menu'){
+        if(confirm('Block this person? Press Cancel to leave them visible.')) blockPerson(id, false);
+        return;
+      }
       blockPerson(id, icon.dataset.act === 'report');
     });
   });
@@ -2096,15 +2103,16 @@ function startSignatureKnock(){
   const row=document.getElementById('signatureSeqRow');
   row.innerHTML=sequence.map((_,i)=>`<div class="knock-dot" id="sigDot${i}">✦</div>`).join('');
   const pad=document.getElementById('signatureKnockPad');
-  pad.innerHTML=signatureColors.map((c,i)=>`<button class="knock-key" data-i="${i}" aria-label="knock signal ${i+1}">✦</button>`).join('');
+  const knockSymbols=['●','◆','✦','♥'];
+  pad.innerHTML=signatureColors.map((c,i)=>`<button type="button" class="knock-key" data-i="${i}" aria-label="knock signal ${i+1}" disabled>${knockSymbols[i]}</button>`).join('');
   document.getElementById('signatureKnockStatus').innerHTML='Watch the glow. Then repeat the signal.';
   document.getElementById('signatureTimerFill').style.width='100%';
-  pad.querySelectorAll('.knock-key').forEach(k=>k.onclick=null);
+  pad.querySelectorAll('.knock-key').forEach(k=>{k.onclick=null;k.disabled=true;});
   let i=0;
   const playNext=()=>{
     if(i>=sequence.length){
       document.getElementById('signatureKnockStatus').innerHTML='<strong>Your turn.</strong> Repeat the signal.';
-      pad.querySelectorAll('.knock-key').forEach(k=>k.onclick=()=>handleSignatureTap(parseInt(k.dataset.i)));
+      pad.querySelectorAll('.knock-key').forEach(k=>{ k.disabled=false; k.onclick=()=>handleSignatureTap(parseInt(k.dataset.i)); k.onpointerdown=(e)=>{ e.preventDefault(); k.click(); }; });
       runSignatureTimer(); return;
     }
     const key=pad.querySelector(`[data-i="${sequence[i]}"]`); const dot=document.getElementById('sigDot'+i);
@@ -2386,6 +2394,8 @@ async function openChat(personId){
   // EMBER deliberately keeps conversation ephemeral. No message history is loaded
   // and no message is written to Supabase. Messages live only in this open session.
   panel.classList.add('show');
+  const input = document.getElementById('chatInput');
+  if(input){ input.disabled=false; input.readOnly=false; input.style.pointerEvents='auto'; input.focus({preventScroll:true}); }
   panel.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
