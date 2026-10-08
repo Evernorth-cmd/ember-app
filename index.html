@@ -1769,8 +1769,9 @@ function getSessionId(){
   return id;
 }
 let mySessionId = getSessionId();
-// A selected place gets its own room identity. Four decimal places is roughly
-// an 11m grid, which keeps a café/venue together while separating nearby places.
+// A selected place gets its own room identity. Auto-location uses a ~100m grid
+// to absorb normal GPS drift between phones/laptops at the same venue.
+// Manually selected places still use their place identity and remain exact.
 let selectedVenueKey = null;
 let roomGeneration = 0;
 let roomStartedAt = Date.now();
@@ -1779,10 +1780,10 @@ let roomStartedAt = Date.now();
 function newRoomSessionId(){ return 'room-' + Math.random().toString(36).slice(2,10) + '-' + Date.now().toString(36); }
 function venueId(){
   if(selectedVenueKey) return selectedVenueKey;
-  return userCoords ? 'coords:' + userCoords.lat.toFixed(4) + ',' + userCoords.lon.toFixed(4) : 'default-venue';
+  return userCoords ? 'coords:' + userCoords.lat.toFixed(3) + ',' + userCoords.lon.toFixed(3) : 'default-venue';
 }
 function markNewLocation(lat, lon, key){
-  const nextKey = key || ('coords:' + Number(lat).toFixed(4) + ',' + Number(lon).toFixed(4));
+  const nextKey = key || ('coords:' + Number(lat).toFixed(3) + ',' + Number(lon).toFixed(3));
   const changed = selectedVenueKey !== nextKey;
   selectedVenueKey = nextKey;
   if(!changed) return;
