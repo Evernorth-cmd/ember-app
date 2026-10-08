@@ -1093,6 +1093,131 @@ body.meetup-mode .hero-copy{padding-top:12px !important;}
   .hero-copy{padding-left:18px !important; padding-right:18px !important;}
 }
 </style>
+<style id="ember-v15-ux-fix">
+/* EMBER v15 UX correction pass: giraffe-spots everywhere + compact hero */
+html,body{background:#FFF3D7 !important;}
+body{
+  color:#4A2E1A !important;
+  background-color:#FFF3D7 !important;
+  background-image:
+    radial-gradient(ellipse 72px 48px at 6% 8%, rgba(196,126,48,.18) 0 68%, transparent 70%),
+    radial-gradient(ellipse 104px 70px at 22% 3%, rgba(224,154,67,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 88px 58px at 43% 11%, rgba(184,113,42,.14) 0 68%, transparent 70%),
+    radial-gradient(ellipse 116px 76px at 72% 5%, rgba(224,154,67,.16) 0 68%, transparent 70%),
+    radial-gradient(ellipse 82px 55px at 94% 13%, rgba(190,119,43,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 118px 78px at 11% 28%, rgba(224,154,67,.14) 0 68%, transparent 70%),
+    radial-gradient(ellipse 76px 52px at 34% 25%, rgba(190,119,43,.13) 0 68%, transparent 70%),
+    radial-gradient(ellipse 106px 70px at 59% 29%, rgba(224,154,67,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 86px 60px at 86% 25%, rgba(190,119,43,.14) 0 68%, transparent 70%),
+    radial-gradient(ellipse 108px 72px at 4% 49%, rgba(190,119,43,.13) 0 68%, transparent 70%),
+    radial-gradient(ellipse 82px 56px at 25% 45%, rgba(224,154,67,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 120px 80px at 50% 51%, rgba(190,119,43,.12) 0 68%, transparent 70%),
+    radial-gradient(ellipse 78px 52px at 77% 47%, rgba(224,154,67,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 112px 74px at 96% 55%, rgba(190,119,43,.13) 0 68%, transparent 70%),
+    radial-gradient(ellipse 92px 62px at 13% 70%, rgba(224,154,67,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 114px 76px at 38% 67%, rgba(190,119,43,.12) 0 68%, transparent 70%),
+    radial-gradient(ellipse 82px 55px at 66% 73%, rgba(224,154,67,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 108px 72px at 90% 68%, rgba(190,119,43,.13) 0 68%, transparent 70%),
+    radial-gradient(ellipse 80px 54px at 6% 91%, rgba(190,119,43,.14) 0 68%, transparent 70%),
+    radial-gradient(ellipse 118px 78px at 29% 91%, rgba(224,154,67,.15) 0 68%, transparent 70%),
+    radial-gradient(ellipse 86px 58px at 56% 88%, rgba(190,119,43,.13) 0 68%, transparent 70%),
+    radial-gradient(ellipse 110px 72px at 82% 94%, rgba(224,154,67,.15) 0 68%, transparent 70%);
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(rgba(255,248,232,.42),rgba(255,248,232,.42));}
+.app{position:relative;z-index:1;background:transparent !important;}
+.k-bg-label,.k-bg-spark,.seoul-scene{display:none !important;}
+body.meetup-mode .hero{padding:0 0 10px !important;background:transparent !important;border:0 !important;box-shadow:none !important;min-height:0 !important;}
+body.meetup-mode .hero-top{display:none !important;}
+body.meetup-mode .exact-giraffe-brand{display:block !important;width:100%;max-height:292px;overflow:hidden;background:transparent;}
+body.meetup-mode .exact-giraffe-brand img{width:100%;height:auto;max-height:292px;object-fit:contain;object-position:center top;}
+body.meetup-mode .hero-copy{display:none !important;}
+body.meetup-mode .locline{margin:0 18px;padding:9px 12px;border-radius:999px;background:rgba(255,251,241,.84)!important;border:1px solid rgba(157,94,36,.16);color:#79583B!important;box-shadow:0 8px 22px rgba(120,73,28,.08);}
+body.meetup-mode .locline #locText{color:#79583B!important;}
+body.meetup-mode #manualBtn{color:#C96829!important;}
+body.meetup-mode #meetupSection{padding-top:4px;background:transparent!important;}
+body.meetup-mode .meetup-sub, body.meetup-mode .venue-bar{color:#79583B!important;}
+body.meetup-mode .meetup-sub .eyebrow, body.meetup-mode .section-title{color:#A8612A!important;}
+body.meetup-mode .pcard,body.meetup-mode .optin-card,body.meetup-mode .builder,body.meetup-mode .premium-card,body.meetup-mode .chat-panel{background:rgba(255,250,241,.86)!important;border-color:rgba(143,82,38,.16)!important;color:#4A2E1A!important;box-shadow:0 10px 28px rgba(111,66,27,.08);}
+body.meetup-mode .pcard .desc{color:#4A2E1A!important;}
+body.meetup-mode .pcard .tagline{color:#C96829!important;}
+body.meetup-mode .pcard .k{color:#8A633F!important;}
+body.meetup-mode .room-heading .section-title,body.meetup-mode .room-title{color:#5A371F!important;}
+body.meetup-mode .live-pill{background:rgba(232,103,44,.10)!important;color:#A34D1E!important;border-color:rgba(163,77,30,.18)!important;}
+body.meetup-mode .chip{background:rgba(255,255,255,.68)!important;border-color:rgba(143,82,38,.18)!important;color:#79583B!important;}
+body.meetup-mode .chip.sel{background:rgba(232,103,44,.12)!important;border-color:#E8672C!important;color:#A34D1E!important;}
+body.meetup-mode .save-btn{background:linear-gradient(90deg,#E8672C,#FFB24D)!important;color:#fff!important;}
+body.meetup-mode .leave-btn{color:#79583B!important;border-color:rgba(143,82,38,.18)!important;}
+body.meetup-mode .room-grid{grid-template-columns:1fr!important;gap:10px!important;}
+@media(max-width:700px){
+  body.meetup-mode .exact-giraffe-brand{max-height:255px;}
+  body.meetup-mode .exact-giraffe-brand img{max-height:255px;}
+}
+</style>
+<style id="ember-v15-final-visual">
+:root{--g-cream:#FFF4D8;--g-soft:#FFF9EA;--g-gold:#E6A044;--g-brown:#63391F;--g-orange:#E8672C;--g-coral:#FF7A55;--g-pink:#FF5F91}
+html,body{background-color:var(--g-cream)!important;color:var(--g-brown)!important}
+body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Crect width='360' height='360' fill='%23FFF4D8'/%3E%3Cg fill='%23E6A044' opacity='.42'%3E%3Cpath d='M18 18c18-16 54-16 67 5s-5 46-31 49S0 42 18 18Z'/%3E%3Cpath d='M118 2c30-9 61 6 64 30s-26 38-55 31S89 11 118 2Z'/%3E%3Cpath d='M255 20c24-15 58-4 65 20s-13 45-40 47-49-18-47-37c2-12 9-23 22-30Z'/%3E%3Cpath d='M66 92c26-12 58 2 61 27s-20 44-48 39-39-28-30-48c4-8 9-14 17-18Z'/%3E%3Cpath d='M184 88c18-13 52-9 64 10s2 47-23 55-55-6-59-30c-4-14 4-27 18-35Z'/%3E%3Cpath d='M307 101c22-10 48 3 51 25s-15 43-38 44-37-16-35-36c1-14 9-26 22-33Z'/%3E%3Cpath d='M5 178c24-12 57 2 63 26s-13 48-40 49-39-19-34-43c2-14 5-23 11-32Z'/%3E%3Cpath d='M111 171c30-13 63 5 65 32s-25 45-53 38-40-28-31-49c4-10 10-16 19-21Z'/%3E%3Cpath d='M237 175c23-13 58-2 65 22s-11 49-39 53-51-15-51-39c0-15 10-28 25-36Z'/%3E%3Cpath d='M40 272c20-13 53-5 62 17s-9 48-35 51-49-11-52-33c-2-14 6-27 25-35Z'/%3E%3Cpath d='M153 271c24-12 59 1 65 25s-12 47-39 51-51-14-51-37c0-16 9-30 25-39Z'/%3E%3Cpath d='M287 275c22-14 55-5 65 18s-8 47-34 52-50-10-53-32c-2-15 6-29 22-38Z'/%3E%3C/g%3E%3C/svg%3E")!important;background-repeat:repeat!important;background-size:360px 360px!important;background-attachment:fixed!important}
+.seoul-scene,.beam,.k-bg-label,.k-bg-spark,.peacock-feather{display:none!important}
+.app{background:transparent!important;max-width:560px!important}
+.hero{padding:0 0 10px!important;background:transparent!important;border:0!important;overflow:visible!important}
+.exact-giraffe-brand{width:100%!important;margin:0!important;padding:0!important;line-height:0!important;background:transparent!important}
+.exact-giraffe-brand img{display:block!important;width:100%!important;height:auto!important;max-width:none!important;object-fit:contain!important;object-position:center top!important;margin:0!important;border:0!important;filter:drop-shadow(0 14px 22px rgba(98,57,31,.12))}
+body:not(.meetup-mode) .hero-copy,body.meetup-mode .hero-copy{display:none!important}
+.mode-switch{display:none!important}
+.mode-btn{background:rgba(255,250,238,.88)!important;border-color:rgba(99,57,31,.14)!important;color:var(--g-brown)!important;box-shadow:0 8px 24px rgba(99,57,31,.07)!important}
+.mode-btn.meetup.active{background:linear-gradient(90deg,#FFE6A9,#FFD28A)!important;color:#63391F!important;border-color:rgba(230,160,68,.45)!important}
+.discover-link{color:#B96D2D!important}
+#meetupSection{padding:0 18px 46px!important}
+.meetup-sub,.venue-bar,.section-title,.field label{color:#805536!important}
+.venue-bar b{color:#4E2C18!important}
+.locline{color:#805536!important;padding:0 20px 4px!important}
+.locline .pulse{background:#55B879!important}
+.locline #manualBtn{color:#C96829!important}
+.card,.optin-card,.builder,.pcard,.chat-panel,.room-intro,.premium-card{background:rgba(255,249,234,.93)!important;border:1px solid rgba(99,57,31,.14)!important;color:#63391F!important;box-shadow:0 12px 34px rgba(99,57,31,.10),inset 0 1px 0 rgba(255,255,255,.72)!important}
+.room-intro{border-radius:28px!important;padding:20px!important}
+.room-intro h2,.premium-headline h3,.room-title{color:#63391F!important}
+.room-intro p,.premium-card p,.premium-note,.empty{color:#8B6547!important}
+.optin-card{border-radius:24px!important}
+.optin-text,.optin-text strong,.optin-text small{color:#63391F!important}
+.builder{border-radius:24px!important;padding:18px!important}
+.chip{background:#FFF9EA!important;border-color:rgba(99,57,31,.14)!important;color:#805536!important}
+.chip.sel{background:#FFE3A9!important;border-color:#E6A044!important;color:#63391F!important}
+.save-btn,.room-action.primary,.opening-cta{background:linear-gradient(100deg,#FF9A2E,#FF5E78)!important;color:white!important;box-shadow:0 12px 28px rgba(232,103,44,.24)!important}
+.leave-btn{background:rgba(255,255,255,.7)!important;color:#8B6547!important;border-color:rgba(99,57,31,.16)!important}
+.pcard{min-height:120px!important;border-radius:20px!important;background:rgba(255,249,234,.95)!important}
+.pcard .desc{color:#63391F!important}.pcard .desc .k{color:#9A6A42!important}.pcard .tagline{color:#D76A28!important}
+.room-heading .section-title{color:#805536!important}.room-title{font-family:'Caveat',cursive!important;font-size:34px!important}
+.live-pill{background:rgba(85,184,121,.10)!important;color:#378A59!important;border-color:rgba(85,184,121,.22)!important}
+.pcard-actions span{color:#8B6547!important}.empty{background:rgba(255,249,234,.76)!important;border-radius:22px!important}
+body.meetup-mode .ember-black-card{background:linear-gradient(145deg,rgba(255,244,214,.98),rgba(255,228,190,.96))!important;border:1px solid rgba(230,160,68,.30)!important;box-shadow:0 18px 48px rgba(99,57,31,.13)!important}
+body.meetup-mode .premium-card h3,body.meetup-mode .premium-card .premium-price{color:#63391F!important}
+body.meetup-mode .premium-card p,body.meetup-mode .premium-card .premium-note{color:#8B6547!important}
+body.meetup-mode .premium-live-feature{background:rgba(255,255,255,.48)!important;border-color:rgba(99,57,31,.10)!important;color:#805536!important}
+body.meetup-mode .premium-live-feature b{color:#D76A28!important}.premium-feature-icon{color:#E8672C!important}
+body.meetup-mode .premium-btn{background:linear-gradient(90deg,#FF7A22,#FF4F91)!important;color:#fff!important}
+.bottom-nav{background:rgba(255,249,234,.92)!important;border-top:1px solid rgba(99,57,31,.12)!important}.bottom-nav button,.bottom-nav button.active{color:#8B6547!important}
+.opening-hero{margin:12px 18px 16px!important;border-radius:28px!important;min-height:0!important;padding:20px!important;background:rgba(255,249,234,.86)!important;border:1px solid rgba(99,57,31,.13)!important;box-shadow:0 16px 40px rgba(99,57,31,.10)!important}
+.opening-copy h2{color:#63391F!important}.opening-copy p{color:#805536!important}.opening-proof span{background:rgba(230,160,68,.10)!important;border-color:rgba(99,57,31,.10)!important;color:#805536!important}
+.opening-bloop,#bloopMuseSvg,#mascotWidget,.bloop-crawler,.logo-bloop,.bloop-note,.bloop-status,.bloop-proactive-note,.bloop-morph-layer{display:none!important}
+@media(max-width:700px){.exact-giraffe-brand img{width:100%!important}.hero{padding-bottom:6px!important}#meetupSection{padding-left:14px!important;padding-right:14px!important}.room-grid{gap:10px!important}.pcard{padding:13px!important}}
+</style>
+
+<style id="ember-classic-appearance">
+/* Classic appearance editor: simple form/card treatment, preserving the approved giraffe theme. */
+body.meetup-mode .builder{background:rgba(255,252,246,.94)!important;border:1px solid rgba(122,78,39,.16)!important;border-radius:18px!important;box-shadow:0 10px 30px rgba(103,65,28,.08)!important;padding:18px!important;}
+body.meetup-mode .builder .section-title{font-family:Inter,Arial,sans-serif!important;font-size:20px!important;font-weight:700!important;color:#4A2E1A!important;letter-spacing:0!important;}
+body.meetup-mode .builder .optional-note{font-family:Inter,Arial,sans-serif!important;color:#7B634C!important;line-height:1.55!important;}
+body.meetup-mode .builder .field{margin:0 0 16px!important;padding:0!important;}
+body.meetup-mode .builder .field label{display:block!important;margin:0 0 7px!important;color:#5B3C24!important;font-size:13px!important;font-weight:700!important;}
+body.meetup-mode .builder .chip-row{display:flex!important;flex-wrap:wrap!important;gap:7px!important;}
+body.meetup-mode .builder .chip{background:#fff!important;border:1px solid #D8C8B8!important;color:#5B4634!important;border-radius:8px!important;padding:9px 11px!important;box-shadow:none!important;font-size:12px!important;min-height:36px!important;}
+body.meetup-mode .builder .chip.sel{background:#FFF1DE!important;border-color:#D96A28!important;color:#A64B20!important;box-shadow:inset 0 0 0 1px rgba(217,106,40,.12)!important;}
+body.meetup-mode .builder .save-btn{background:#D96A28!important;border-radius:10px!important;box-shadow:none!important;font-weight:700!important;}
+body.meetup-mode .builder .leave-btn{border-radius:10px!important;background:#fff!important;color:#7B4E32!important;border:1px solid #D8C8B8!important;}
+body.meetup-mode #chatInput{font-size:16px!important;line-height:1.3!important;min-height:44px!important;box-sizing:border-box!important;touch-action:manipulation!important;-webkit-user-select:text!important;user-select:text!important;caret-color:#D96A28!important;}
+body.meetup-mode #chatSendBtn{min-height:44px!important;touch-action:manipulation!important;}
+@media(max-width:600px){body.meetup-mode .builder{padding:16px!important}.signature-card{min-height:calc(100dvh - 18px)!important}.knock-key{touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important;min-width:64px!important;min-height:64px!important;}}
+</style>
 </head>
 <body>
 <div class="k-bg-label a"><span>안녕 · HI</span></div>
@@ -1182,7 +1307,7 @@ body.meetup-mode .hero-copy{padding-top:12px !important;}
 <main id="listArea"></main>
 </div>
 <div id="meetupSection">
-<div class="meetup-sub"><span class="eyebrow">THE MEET-UP ROOM</span><br/>A live room for the people around you. Share a few appearance details if you want to be recognisable — or share nothing at all and simply be present.</div>
+<div class="meetup-sub"><span class="eyebrow">THE MEET-UP ROOM</span><br/>Choose your appearance first. Then see whether the person you noticed is here too — if their look matches, send a quiet Knock. A mutual Knock can unlock a small game, compatibility questions, and then chat.</div>
 <div class="venue-bar">📍 <b id="venueLabel">Around your current location</b> · <span id="roomCount">0</span> people opted in nearby</div>
 <div class="room-intro"><div class="small">THE EMBER DIFFERENCE</div><h2>See who is open to a hello.</h2><p>Recognise someone by the few details they choose to share, then make a quiet Knock. No public-profile feed. No endless swiping.</p><div class="room-actions"><button class="room-action primary" id="quickOpenBtn" type="button">I'm open to a hello</button><button class="room-action" id="howItWorksBtn" type="button">How it works</button></div></div>
 <div id="knockLimitMsg" style="display:none; font-size:12px; color:var(--red); margin-bottom:10px;"></div>
@@ -1214,16 +1339,14 @@ body.meetup-mode .hero-copy{padding-top:12px !important;}
 <button type="button" class="leave-btn" id="leaveBtn">Leave the room (hide me instantly)</button>
 </div>
 <section aria-label="EMBER Black premium" class="premium-card ember-black-card"><div class="premium-glow-orb"></div><div class="premium-sparkles"><i>✦</i><i>·</i><i>✧</i></div><div class="premium-headline"><div><div class="label">EMBER BLACK · PREMIUM</div><h3>More magic, when you want it.</h3><p>Keep the heart of EMBER free. Black adds optional extras around the Meet-Up experience — never a paywall on saying hello.</p></div><span class="premium-crown">♛</span></div><div class="premium-live-features premium-feature-grid"><div class="premium-live-feature"><span class="premium-feature-icon">♡</span><b>More daily Knocks</b><small>More chances to send a quiet signal.</small></div><div class="premium-live-feature"><span class="premium-feature-icon">✦</span><b>Richer recognition</b><small>Extra appearance details when you need them.</small></div><div class="premium-live-feature"><span class="premium-feature-icon">♢</span><b>Private Meet-Ups</b><small>Optional invite-only rooms and moments.</small></div><div class="premium-live-feature"><span class="premium-feature-icon">◎</span><b>Early access</b><small>New rooms, events and EMBER drops first.</small></div></div><div class="premium-bottom"><div><div class="premium-price">EMBER BLACK</div><div class="premium-note">Launching after the core Meet-Up experience is ready.</div></div><button class="premium-btn" id="premiumBtn">Join the waitlist <span>→</span></button></div><div id="waitlistBox" style="display:none; margin-top:12px; gap:8px;"><input id="waitlistEmail" placeholder="you@email.com" style="width:100%; padding:11px 13px; border-radius:12px; border:1px solid rgba(255,201,138,0.3); background:rgba(255,255,255,0.08); color:#FFE9CC; font-size:13px;" type="email"/><button id="waitlistSubmit" style="width:100%; margin-top:8px; padding:12px; border-radius:12px; border:none; background:linear-gradient(90deg,#FF6A21,#FF4F8F); color:#fff; font-weight:800; cursor:pointer;">Notify me</button></div></section>
-<div class="room-heading"><div><span class="section-title">In the room</span><div class="room-title">People open to a hello</div></div><div class="live-pill"><span></span> LIVE</div></div>
+<div class="room-heading" id="roomHeading"><div><span class="section-title">In the room</span><div class="room-title">People open to a hello</div></div><div class="live-pill"><span></span> LIVE</div></div>
 <div class="room-grid" id="roomGrid"></div>
 <div class="chat-panel" id="chatPanel">
 <div class="who" id="chatWho"></div>
 <div id="chatMessages" style="max-height:220px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column; gap:6px;"></div>
-<div class="chat-composer" style="display:flex; gap:8px; width:100%;">
-<input id="chatInput" autocomplete="off" autocapitalize="sentences" enterkeyhint="send" inputmode="text" placeholder="Say something… · not saved" style="flex:1; min-width:0; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:var(--panel-2); color:var(--ink); font-size:16px; font-family:'Inter',sans-serif;" type="text"/>
-<button id="chatSendBtn" type="button" style="flex:0 0 auto; padding:11px 16px; border-radius:12px; border:none; background:var(--blue); color:#05070B; font-weight:700; cursor:pointer;">Send</button>
-</div>
-<div id="chatEphemeralNote" style="width:100%;font-size:10px;color:var(--ink-muted);margin-top:7px;text-align:center;">Private conversation · messages are not saved by EMBER · Returning later requires a new Knock</div>
+<div style="display:flex; gap:8px;">
+<input id="chatInput" placeholder="Say something… · not saved" autocomplete="off" autocapitalize="sentences" enterkeyhint="send" inputmode="text" style="flex:1; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--panel-2); color:var(--ink); font-size:16px; font-family:'Inter',sans-serif;" type="text"/>
+<button id="chatSendBtn" style="padding:10px 16px; border-radius:8px; border:none; background:var(--blue); color:#05070B; font-weight:700; cursor:pointer;">Send</button><div id="chatEphemeralNote" style="width:100%;font-size:10px;color:var(--ink-muted);margin-top:6px;text-align:center;">Private conversation · messages are not saved by EMBER · Returning later requires a new Knock</div>
 </div>
 </div>
 </div>
@@ -1358,7 +1481,7 @@ async function geocodePlaceOptions(name){
   if(!res.ok) throw new Error('geocoding failed');
   const data = await res.json();
   if(!data.length) throw new Error('place not found');
-  return data.map(d => ({ lat: parseFloat(d.lat), lon: parseFloat(d.lon), label: d.display_name }));
+  return data.map(d => ({ lat: parseFloat(d.lat), lon: parseFloat(d.lon), label: d.display_name, placeId: d.place_id || null }));
 }
 async function loadCategory(catKey){
   const area = document.getElementById('listArea');
@@ -1504,35 +1627,72 @@ async function reverseGeocodeLabel(){
 function initLocation(){
   const locText = document.getElementById('locText');
   const dot = document.getElementById('pulseDot');
+  let settled = false;
+  let ipDone = false;
+  let gpsDone = false;
+  locText.textContent = 'Finding your location…';
+  dot.classList.remove('err');
+
+  const applyCoords = (lat, lon, label, approximate=false) => {
+    const old = userCoords;
+    userCoords = { lat, lon };
+    markNewLocation(lat, lon);
+    settled = true;
+    locText.textContent = label || (approximate ? 'Auto-selected · your approximate area' : `Auto-selected · Live · ${lat.toFixed(3)}, ${lon.toFixed(3)}`);
+    const venueEl = document.getElementById('venueLabel'); if(venueEl && approximate) venueEl.textContent = 'Around your approximate area';
+    dot.classList.remove('err');
+    Object.keys(cache).forEach(k=>delete cache[k]);
+    loadCategory(activeCat);
+    reverseGeocodeLabel();
+    if(old && haversineKm(old.lat,old.lon,lat,lon) < 0.15) return;
+  };
+
+  // Start the approximate location immediately so the room never sits on “Locating…”
+  // while the browser waits for a GPS fix.
+  fetch('https://ipapi.co/json/', {cache:'no-store'})
+    .then(r=>{ if(!r.ok) throw new Error('ip lookup failed'); return r.json(); })
+    .then(data=>{
+      ipDone = true;
+      if(data.latitude && data.longitude && !settled){
+        const place = [data.city, data.region, data.country_name].filter(Boolean).join(', ');
+        applyCoords(parseFloat(data.latitude),parseFloat(data.longitude),`Auto-selected · Approximate · ${place || 'your area'}`,true);
+        const venueEl=document.getElementById('venueLabel'); if(venueEl) venueEl.textContent='Around '+(place || 'your approximate area');
+      }
+    })
+    .catch(()=>{ ipDone = true; });
+
   if(!navigator.geolocation){
-    useIPFallback('Location unavailable');
+    if(!ipDone) setTimeout(()=>{ if(!settled) locText.textContent='Using your approximate area…'; },1200);
     return;
   }
-  // Fast pass: low-accuracy (network-based) fix, usually near-instant, so the
-  // app isn't sitting idle waiting on a slow GPS lock.
+
   navigator.geolocation.getCurrentPosition(
-    pos => {
-      userCoords = { lat: pos.coords.latitude, lon: pos.coords.longitude };
-      locText.textContent = `Live · ${userCoords.lat.toFixed(3)}, ${userCoords.lon.toFixed(3)}`;
-      loadCategory(activeCat);
-      reverseGeocodeLabel();
-      // Refine pass: try for a more precise GPS fix in the background; only
-      // apply it if it actually arrives, and re-load quietly if it moved enough to matter.
+    pos=>{
+      gpsDone = true;
+      applyCoords(pos.coords.latitude,pos.coords.longitude,`Live · ${pos.coords.latitude.toFixed(3)}, ${pos.coords.longitude.toFixed(3)}`,false);
       navigator.geolocation.getCurrentPosition(
-        precisePos => {
-          const moved = haversineKm(userCoords.lat, userCoords.lon, precisePos.coords.latitude, precisePos.coords.longitude);
-          userCoords = { lat: precisePos.coords.latitude, lon: precisePos.coords.longitude };
-          locText.textContent = `Live · ${userCoords.lat.toFixed(3)}, ${userCoords.lon.toFixed(3)}`;
-          if(moved > 0.15){ Object.keys(cache).forEach(k=>delete cache[k]); loadCategory(activeCat); reverseGeocodeLabel(); }
-        },
-        () => {}, // silent — the fast fix above already gave us something usable
-        { enableHighAccuracy:true, timeout:10000, maximumAge:0 }
+        precise=>{
+          const moved = userCoords ? haversineKm(userCoords.lat,userCoords.lon,precise.coords.latitude,precise.coords.longitude) : 999;
+          userCoords={lat:precise.coords.latitude,lon:precise.coords.longitude};
+          markNewLocation(userCoords.lat,userCoords.lon);
+          locText.textContent=`Auto-selected · Live · ${userCoords.lat.toFixed(3)}, ${userCoords.lon.toFixed(3)}`;
+          if(moved>0.15){ Object.keys(cache).forEach(k=>delete cache[k]); loadCategory(activeCat); reverseGeocodeLabel(); }
+        },()=>{},
+        {enableHighAccuracy:true,timeout:8000,maximumAge:30000}
       );
     },
-    () => useIPFallback('Location permission denied'),
-    { enableHighAccuracy:false, timeout:5000, maximumAge:60000 }
+    ()=>{
+      gpsDone = true;
+      if(!settled){
+        locText.textContent='Auto-selected · approximate area…';
+        dot.classList.remove('err');
+        const venueEl=document.getElementById('venueLabel'); if(venueEl) venueEl.textContent='Around your approximate area';
+      }
+    },
+    {enableHighAccuracy:false,timeout:2500,maximumAge:120000}
   );
 }
+
 document.getElementById('manualBtn').addEventListener('click', ()=>{
   const box = document.getElementById('manualBox');
   box.style.display = box.style.display === 'none' ? 'block' : 'none';
@@ -1552,6 +1712,7 @@ async function runLocationSearch(val){
       chip.addEventListener('click', ()=>{
         const place = options[i];
         userCoords = { lat: place.lat, lon: place.lon };
+        markNewLocation(place.lat, place.lon, 'place:' + (place.placeId || (Number(place.lat).toFixed(4) + ',' + Number(place.lon).toFixed(4))));
         document.getElementById('locText').textContent = 'Set to ' + place.label.split(',')[0];
         document.getElementById('pulseDot').classList.remove('err');
         document.getElementById('venueLabel').textContent = 'Around ' + place.label.split(',')[0];
@@ -1580,7 +1741,7 @@ document.getElementById('manualInput').addEventListener('keydown', (e)=>{
 // across devices. Leave blank to keep using local demo data — nothing
 // else in this file needs to change either way.
 const SUPABASE_URL = 'https://tpxelsbrsvowfxdfssce.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_TmlBBg-4oebS19JGAB8oug_9Awhnqaz';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRweGVsc2Jyc3Zvd2Z4ZGZzc2NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4ODA0MjEsImV4cCI6MjEwNDQ1NjQyMX0.wRddOtmiKIsXfXlPfRN3-mYmer0upCEhV0UDqSSmF40';
 const USE_BACKEND = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
 const sb = USE_BACKEND ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
@@ -1608,10 +1769,38 @@ function getSessionId(){
   return id;
 }
 let mySessionId = getSessionId();
+// A selected place gets its own room identity. Four decimal places is roughly
+// an 11m grid, which keeps a café/venue together while separating nearby places.
+let selectedVenueKey = null;
+let roomGeneration = 0;
+let roomStartedAt = Date.now();
 // Each time someone enters a Meet-Up, they receive a fresh temporary room identity.
 // Previous knocks and chat unlocks therefore never carry into a later visit.
 function newRoomSessionId(){ return 'room-' + Math.random().toString(36).slice(2,10) + '-' + Date.now().toString(36); }
-function venueId(){ return userCoords ? userCoords.lat.toFixed(3) + ',' + userCoords.lon.toFixed(3) : 'default-venue'; }
+function venueId(){
+  if(selectedVenueKey) return selectedVenueKey;
+  return userCoords ? 'coords:' + userCoords.lat.toFixed(4) + ',' + userCoords.lon.toFixed(4) : 'default-venue';
+}
+function markNewLocation(lat, lon, key){
+  const nextKey = key || ('coords:' + Number(lat).toFixed(4) + ',' + Number(lon).toFixed(4));
+  const changed = selectedVenueKey !== nextKey;
+  selectedVenueKey = nextKey;
+  if(!changed) return;
+  roomGeneration++;
+  roomStartedAt = Date.now();
+  currentTargetId = null;
+  currentChatPartner = null;
+  document.getElementById('chatPanel')?.classList.remove('show');
+  const cm = document.getElementById('chatMessages'); if(cm) cm.innerHTML='';
+  const ci = document.getElementById('chatInput'); if(ci) ci.value='';
+  if(USE_BACKEND){
+    resetKnockSubscription();
+    if(emberAuthUserId && mySessionId){
+      sb.from('presence').delete().eq('owner_id', emberAuthUserId).then(()=>{});
+    }
+  }
+  mySessionId = newRoomSessionId();
+}
 
 /* ============ MEETUP ============ */
 const CLOTHING_COLORS = [
@@ -1810,6 +1999,8 @@ function describePerson(p){
 }
 async function renderRoom(){
   const grid = document.getElementById('roomGrid');
+  const renderGeneration = roomGeneration;
+  const renderVenue = venueId();
   if(USE_BACKEND){
     grid.innerHTML = '<div class="empty"><div class="spinner"></div>Checking who\'s in the room…</div>';
     try{ await emberAuthReady; }catch(err){
@@ -1820,15 +2011,24 @@ async function renderRoom(){
     const { data: blockedRows } = await sb.rpc('blocked_room_sessions', {p_venue_id:venueId()});
     const blockedIds = new Set((blockedRows||[]).map(b=>b.session_id));
     // Never select owner_id: it is a stable Auth identity and must not be exposed to room participants.
-    const freshCutoff = new Date(Date.now()-25*60*1000).toISOString();
     const { data, error } = await sb.from('presence')
       .select('session_id,venue_id,appearance,created_at,expires_at')
-      .eq('venue_id', venueId()).neq('session_id', mySessionId)
-      .gt('expires_at', new Date().toISOString())
-      .gt('created_at', freshCutoff);
+      .eq('venue_id', renderVenue).neq('session_id', mySessionId)
+      .gt('expires_at', new Date().toISOString());
     if(error){ grid.innerHTML = `<div class="empty">Couldn't load the room (${error.message}).</div>`; return; }
-    const visible = (data||[]).filter(r => !blockedIds.has(r.session_id));
-    document.getElementById('roomCount').textContent = visible.length + (isVisibleInRoom ? 1 : 0);
+    // If the user changed location while this query was in flight, discard the old room result.
+    if(renderGeneration !== roomGeneration || renderVenue !== venueId()) return;
+    const rawVisible = (data||[]).filter(r => !blockedIds.has(r.session_id));
+    // Keep the room visually clean: identical appearance descriptions are shown once.
+    // This prevents stale/test duplicates from turning the room into a repeated card grid.
+    const unique = new Map();
+    rawVisible.forEach(r=>{
+      const a = r.appearance || {};
+      const signature = describePerson(a).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
+      if(!unique.has(signature)) unique.set(signature,r);
+    });
+    const visible = [...unique.values()];
+    document.getElementById('roomCount').textContent = rawVisible.length + (isVisibleInRoom ? 1 : 0);
     if(!visible.length){ grid.innerHTML = '<div class="empty">No one else has opted in here right now. Check back in a bit.</div>'; return; }
     const groups = {};
     visible.forEach(r => { const zone = r.appearance.doing || 'Around'; (groups[zone] = groups[zone] || []).push(r); });
@@ -1837,8 +2037,7 @@ async function renderRoom(){
     const cardHTML = r => `
       <div class="pcard" data-id="${r.session_id}">
         <div class="pcard-actions">
-          <span data-act="report" data-id="${r.session_id}" title="Report">⚠</span>
-          <span data-act="block" data-id="${r.session_id}" title="Block">🚫</span>
+          <span data-act="menu" data-id="${r.session_id}" title="More options">⋯</span>
           ${incomingKnockers.has(r.session_id) ? `<span data-act="ignore" data-id="${r.session_id}" title="Ignore">🔕</span>` : ''}
         </div>
         <div class="light ${knocked.has(r.session_id) ? 'red' : ''}"></div>
@@ -1856,6 +2055,11 @@ async function renderRoom(){
         e.stopPropagation();
         const id = icon.dataset.id;
         if(icon.dataset.act === 'ignore'){ await ignorePerson(id); return; }
+        if(icon.dataset.act === 'menu'){
+          const shouldReport = confirm('Block this person? Press Cancel to leave them visible.');
+          if(shouldReport) await blockPerson(id, false);
+          return;
+        }
         await blockPerson(id, icon.dataset.act === 'report');
       });
     });
@@ -1884,8 +2088,7 @@ async function renderRoom(){
   grid.innerHTML = visible.map(p => `
     <div class="pcard" data-id="${p.id}">
       <div class="pcard-actions">
-        <span data-act="report" data-id="${p.id}" title="Report">⚠</span>
-        <span data-act="block" data-id="${p.id}" title="Block">🚫</span>
+        <span data-act="menu" data-id="${p.id}" title="More options">⋯</span>
       </div>
       <div class="light ${knocked.has(p.id) ? 'red' : ''}"></div>
       <div class="desc">${describePerson(p)}</div>
@@ -1895,6 +2098,10 @@ async function renderRoom(){
     icon.addEventListener('click', (e)=>{
       e.stopPropagation();
       const id = parseInt(icon.dataset.id);
+      if(icon.dataset.act === 'menu'){
+        if(confirm('Block this person? Press Cancel to leave them visible.')) blockPerson(id, false);
+        return;
+      }
       blockPerson(id, icon.dataset.act === 'report');
     });
   });
@@ -1928,7 +2135,7 @@ function lockAppearanceFields(locked){
   if(updateBtn) updateBtn.remove();
 }
 const COLORS = ['#3DA9FC','#E8A94C','#33D69F','#FF5C6C'];
-let currentTargetId = null, sequence = [], userSeq = [], timerInterval = null, timeLeft = 10;
+let currentTargetId = null, sequence = [], userSeq = [], timerInterval = null, timeLeft = 20, knockInputLocked = false;
 const signatureColors = ['#3DA9FC','#E8A94C','#33D69F','#FF5C6C'];
 function openPuzzle(personId){
   currentTargetId = personId;
@@ -1942,20 +2149,26 @@ function closeSignatureKnock(){
 document.getElementById('signatureKnockClose').onclick = closeSignatureKnock;
 document.getElementById('signatureKnockCancel').onclick = closeSignatureKnock;
 function startSignatureKnock(){
-  sequence = Array.from({length:4}, ()=>Math.floor(Math.random()*4));
-  userSeq = []; timeLeft = 10;
+  sequence = Array.from({length:3}, ()=>Math.floor(Math.random()*4));
+  userSeq = []; timeLeft = 20; knockInputLocked = false;
   const row=document.getElementById('signatureSeqRow');
   row.innerHTML=sequence.map((_,i)=>`<div class="knock-dot" id="sigDot${i}">✦</div>`).join('');
   const pad=document.getElementById('signatureKnockPad');
-  pad.innerHTML=signatureColors.map((c,i)=>`<button class="knock-key" data-i="${i}" aria-label="knock signal ${i+1}">✦</button>`).join('');
+  const knockSymbols=['●','◆','✦','♥'];
+  pad.innerHTML=signatureColors.map((c,i)=>`<button type="button" class="knock-key" data-i="${i}" aria-label="knock signal ${i+1}" disabled>${knockSymbols[i]}</button>`).join('');
   document.getElementById('signatureKnockStatus').innerHTML='Watch the glow. Then repeat the signal.';
   document.getElementById('signatureTimerFill').style.width='100%';
-  pad.querySelectorAll('.knock-key').forEach(k=>k.onclick=null);
+  pad.querySelectorAll('.knock-key').forEach(k=>{k.onclick=null;k.onpointerup=null;k.onkeydown=null;k.disabled=true;});
   let i=0;
   const playNext=()=>{
     if(i>=sequence.length){
       document.getElementById('signatureKnockStatus').innerHTML='<strong>Your turn.</strong> Repeat the signal.';
-      pad.querySelectorAll('.knock-key').forEach(k=>k.onclick=()=>handleSignatureTap(parseInt(k.dataset.i)));
+      pad.querySelectorAll('.knock-key').forEach(k=>{
+        k.disabled=false;
+        k.onclick=null;
+        k.onpointerup=(e)=>{ e.preventDefault(); handleSignatureTap(parseInt(k.dataset.i)); };
+        k.onkeydown=(e)=>{ if((e.key==='Enter'||e.key===' ') && !e.repeat){ e.preventDefault(); handleSignatureTap(parseInt(k.dataset.i)); } };
+      });
       runSignatureTimer(); return;
     }
     const key=pad.querySelector(`[data-i="${sequence[i]}"]`); const dot=document.getElementById('sigDot'+i);
@@ -1964,12 +2177,23 @@ function startSignatureKnock(){
   };
   setTimeout(playNext,500);
 }
-function runSignatureTimer(){clearInterval(timerInterval);timerInterval=setInterval(()=>{timeLeft-=.1;document.getElementById('signatureTimerFill').style.width=Math.max(0,timeLeft/10*100)+'%';if(timeLeft<=0){clearInterval(timerInterval);finishPuzzle(false)}},100)}
+function runSignatureTimer(){
+  clearInterval(timerInterval);
+  const started=performance.now();
+  timerInterval=setInterval(()=>{
+    timeLeft=Math.max(0,20-(performance.now()-started)/1000);
+    document.getElementById('signatureTimerFill').style.width=Math.max(0,timeLeft/20*100)+'%';
+    if(timeLeft<=0){clearInterval(timerInterval);finishPuzzle(false);}
+  },100);
+}
 function handleSignatureTap(i){
-  const key=document.querySelector(`#signatureKnockPad [data-i="${i}"]`); key.classList.add('flash'); setTimeout(()=>key.classList.remove('flash'),180);
+  if(knockInputLocked) return;
+  const key=document.querySelector(`#signatureKnockPad [data-i="${i}"]`);
+  if(!key || key.disabled) return;
+  key.classList.add('flash'); setTimeout(()=>key.classList.remove('flash'),180);
   userSeq.push(i); const idx=userSeq.length-1;
-  if(userSeq[idx]!==sequence[idx]){finishPuzzle(false);return}
-  if(userSeq.length===sequence.length){clearInterval(timerInterval);finishPuzzle(true)}
+  if(userSeq[idx]!==sequence[idx]){ knockInputLocked=true; finishPuzzle(false); return; }
+  if(userSeq.length===sequence.length){knockInputLocked=true;clearInterval(timerInterval);finishPuzzle(true)}
 }
 function finishPuzzle(success){
   const status=document.getElementById('signatureKnockStatus');
@@ -2237,6 +2461,11 @@ async function openChat(personId){
   // EMBER deliberately keeps conversation ephemeral. No message history is loaded
   // and no message is written to Supabase. Messages live only in this open session.
   panel.classList.add('show');
+  const input = document.getElementById('chatInput');
+  if(input){
+    input.disabled=false; input.readOnly=false; input.style.pointerEvents='auto'; input.tabIndex=0;
+    setTimeout(()=>{ input.focus({preventScroll:true}); input.click(); },80);
+  }
   panel.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
@@ -2261,6 +2490,8 @@ async function sendChatMessage(){
   appendMessage(body, true);
   // Intentionally not persisted. EMBER does not store chat messages.
 }
+
+
 
 
 /* ============ APPEARANCE CONTROLS — restored classic layout ============ */
@@ -2334,9 +2565,13 @@ async function sendChatMessage(){
         await emberAuthReady;
         // Fresh room identity on every new entry: returning later requires a new Knock.
         resetKnockSubscription();
+        // A person can re-enter the same venue with a new temporary session.
+        // Remove any previous presence rows belonging to this same anonymous user
+        // so they can never see their own old appearance as another person.
+        await sb.from('presence').delete().eq('owner_id', emberAuthUserId);
         mySessionId = newRoomSessionId();
         const appearance = {...selections};
-        const expiresAt = new Date(Date.now()+20*60*1000).toISOString();
+        const expiresAt = new Date(Date.now()+3*60*60*1000).toISOString();
         const result = await sb.from('presence').upsert({
           owner_id: emberAuthUserId,
           session_id: mySessionId,
@@ -2349,9 +2584,14 @@ async function sendChatMessage(){
       }
       if(!USE_BACKEND){ resetKnockSubscription(); mySessionId = newRoomSessionId(); }
       isVisibleInRoom = true;
+      roomStartedAt = Date.now();
+      currentTargetId = null;
+      currentChatPartner = null;
+      document.getElementById('chatPanel')?.classList.remove('show');
       saveBtn.textContent = 'You\'re visible ✓';
       setRoomEditor(true);
-      renderRoom();
+      await renderRoom();
+      requestAnimationFrame(()=>document.getElementById('roomHeading')?.scrollIntoView({behavior:'smooth',block:'start'}));
       showToast('You\'re visible in this Meet-Up room. ✦');
     }catch(err){
       console.error('EMBER visibility error',err);
@@ -2373,6 +2613,11 @@ async function sendChatMessage(){
         resetKnockSubscription();
       }
       isVisibleInRoom = false;
+      currentTargetId = null;
+      currentChatPartner = null;
+      document.getElementById('chatPanel')?.classList.remove('show');
+      const chatInput=document.getElementById('chatInput'); if(chatInput) chatInput.value='';
+      const chatMessages=document.getElementById('chatMessages'); if(chatMessages) chatMessages.innerHTML='';
       setRoomEditor(false);
       saveBtn.textContent = "I'm visible in the room";
       renderRoom();
@@ -2536,6 +2781,9 @@ body.meetup-mode .room-action.primary{min-height:48px!important;font-size:13px!i
     }
   }, true);
 })();
+
+// Auto-select the user's location as soon as the app starts.
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initLocation, {once:true}); else initLocation();
 </script>
 
 <style id="giraffe-theme-final">
@@ -2597,309 +2845,3 @@ body.meetup-mode .hero-line2, body:not(.meetup-mode) .hero-line2{
   body.meetup-mode .hero-word .ember-word, body:not(.meetup-mode) .hero-word .ember-word{font-size:1em!important;}
 }
 </style>
-
-<style id="ember-v17-fixes">
-/* v17 — classic appearance / reliable touch / fresh-room behaviour */
-body.meetup-mode .builder{
-  background:#fffdf8 !important;
-  border:1px solid rgba(116,78,43,.18) !important;
-  border-radius:16px !important;
-  box-shadow:0 8px 28px rgba(92,58,30,.10) !important;
-  padding:18px !important;
-}
-body.meetup-mode .builder .section-title{
-  color:#4a2e1a !important; font-family:'Inter',sans-serif !important;
-  font-size:15px !important; letter-spacing:0 !important; text-transform:none !important;
-  font-weight:800 !important; margin:0 0 6px !important;
-}
-body.meetup-mode .optional-note{
-  background:#fff7e9 !important; border:1px solid rgba(176,119,55,.16) !important;
-  color:#806448 !important; border-radius:10px !important; padding:10px 11px !important;
-  font-size:11.5px !important; margin-bottom:16px !important;
-}
-body.meetup-mode .field{margin-bottom:16px !important;}
-body.meetup-mode .field label{
-  color:#5d4632 !important; font-family:'Inter',sans-serif !important;
-  font-size:12px !important; font-weight:700 !important; letter-spacing:.1px !important;
-  text-transform:none !important; margin-bottom:8px !important;
-}
-body.meetup-mode .chip-row{gap:7px !important;}
-body.meetup-mode .chip{
-  background:#fff !important; color:#6c5845 !important;
-  border:1px solid rgba(116,78,43,.20) !important; border-radius:9px !important;
-  padding:8px 11px !important; box-shadow:none !important; font-size:12px !important;
-  touch-action:manipulation !important; -webkit-tap-highlight-color:transparent !important;
-}
-body.meetup-mode .chip.sel{
-  background:#fff0dc !important; color:#b65322 !important;
-  border-color:#e78345 !important; box-shadow:inset 0 0 0 1px rgba(231,131,69,.15) !important;
-}
-body.meetup-mode .save-btn{
-  background:#e8672c !important; color:#fff !important; border-radius:10px !important;
-  box-shadow:none !important; font-family:'Inter',sans-serif !important; font-weight:800 !important;
-}
-body.meetup-mode .leave-btn{border-radius:10px !important; background:#fff !important; color:#806448 !important;}
-
-/* Knock controls: larger, unambiguous touch targets. */
-#signatureKnockPad{touch-action:manipulation !important; user-select:none !important; -webkit-user-select:none !important;}
-#signatureKnockPad .knock-key{
-  width:82px !important; height:82px !important; min-width:82px !important; min-height:82px !important;
-  display:grid !important; place-items:center !important; padding:0 !important;
-  touch-action:manipulation !important; -webkit-tap-highlight-color:transparent !important;
-  user-select:none !important; -webkit-user-select:none !important;
-  cursor:pointer !important; opacity:1 !important;
-}
-#signatureKnockPad .knock-key:disabled{opacity:.55 !important; cursor:default !important;}
-#signatureKnockPad .knock-key:active{transform:scale(.94) !important;}
-#signatureKnockOverlay .signature-status{min-height:32px !important;}
-
-/* Mobile chat: real text field, visible caret, easy keyboard target. */
-#chatPanel{position:relative !important; z-index:20 !important;}
-#chatPanel .chat-composer{align-items:center !important; position:relative !important; z-index:30 !important;}
-#chatInput{
-  display:block !important; visibility:visible !important; opacity:1 !important; pointer-events:auto !important;
-  position:relative !important; z-index:31 !important; min-height:46px !important;
-  -webkit-user-select:text !important; user-select:text !important; caret-color:currentColor !important;
-  touch-action:manipulation !important;
-}
-#chatInput:disabled{opacity:1 !important;}
-#chatSendBtn{position:relative !important; z-index:32 !important; min-height:46px !important;}
-@media(max-width:600px){
-  #chatInput{font-size:16px !important;}
-  #chatPanel{scroll-margin-top:20px !important;}
-}
-
-/* The room list is a destination after becoming visible. */
-#roomHeadingAnchor{scroll-margin-top:18px;}
-</style>
-<script id="ember-v17-fixes-js">
-(function(){
-  const $ = id => document.getElementById(id);
-  const sleep = ms => new Promise(r=>setTimeout(r,ms));
-
-  /* ---------- 1. Reliable Knock memory game ---------- */
-  let knockRoundToken = 0;
-  let knockInputReady = false;
-  let knockTimerStartedAt = 0;
-  const KNOCK_TIME_MS = 18000;
-
-  window.startSignatureKnock = function(){
-    const token = ++knockRoundToken;
-    clearInterval(timerInterval);
-    sequence = Array.from({length:3}, ()=>Math.floor(Math.random()*4));
-    userSeq = [];
-    timeLeft = KNOCK_TIME_MS/1000;
-    knockInputReady = false;
-    const row = $('signatureSeqRow');
-    const pad = $('signatureKnockPad');
-    const status = $('signatureKnockStatus');
-    const fill = $('signatureTimerFill');
-    if(!row || !pad || !status || !fill) return;
-    row.innerHTML = sequence.map((_,i)=>`<div class="knock-dot" id="sigDot${i}">✦</div>`).join('');
-    const symbols = ['●','◆','✦','♥'];
-    pad.innerHTML = symbols.map((sym,i)=>`<button type="button" class="knock-key" data-i="${i}" aria-label="knock signal ${i+1}" disabled>${sym}</button>`).join('');
-    status.innerHTML = 'Watch the signal. Then repeat it.';
-    fill.style.width='100%';
-
-    const buttons = Array.from(pad.querySelectorAll('.knock-key'));
-    buttons.forEach(btn=>{
-      const tap = ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        if(!knockInputReady || btn.disabled) return;
-        handleSignatureTap(Number(btn.dataset.i));
-      };
-      btn.addEventListener('pointerdown', tap, {passive:false});
-      btn.addEventListener('click', ev=>{ ev.preventDefault(); ev.stopPropagation(); });
-    });
-
-    let i=0;
-    const playNext = async()=>{
-      if(token!==knockRoundToken || !$('signatureKnockOverlay')?.classList.contains('show')) return;
-      if(i>=sequence.length){
-        knockInputReady=true;
-        status.innerHTML='<strong>Your turn.</strong> Tap the same 3 signals.';
-        buttons.forEach(b=>b.disabled=false);
-        runSignatureTimer();
-        return;
-      }
-      const key=pad.querySelector(`[data-i="${sequence[i]}"]`);
-      const dot=$('sigDot'+i);
-      key?.classList.add('flash'); dot?.classList.add('flash');
-      await sleep(650);
-      key?.classList.remove('flash'); dot?.classList.remove('flash');
-      i++;
-      await sleep(220);
-      playNext();
-    };
-    setTimeout(playNext,450);
-  };
-
-  window.runSignatureTimer = function(){
-    clearInterval(timerInterval);
-    knockTimerStartedAt = Date.now();
-    const fill=$('signatureTimerFill');
-    timerInterval=setInterval(()=>{
-      const elapsed=Date.now()-knockTimerStartedAt;
-      const left=Math.max(0,KNOCK_TIME_MS-elapsed);
-      timeLeft=left/1000;
-      if(fill) fill.style.width=(left/KNOCK_TIME_MS*100)+'%';
-      if(left<=0){
-        clearInterval(timerInterval);
-        knockInputReady=false;
-        const buttons=$('signatureKnockPad')?.querySelectorAll('.knock-key')||[];
-        buttons.forEach(b=>b.disabled=true);
-        const status=$('signatureKnockStatus');
-        if(status) status.innerHTML='Time is up — watch once more and try again.';
-        setTimeout(()=>{ if($('signatureKnockOverlay')?.classList.contains('show')) startSignatureKnock(); },900);
-      }
-    },80);
-  };
-
-  window.handleSignatureTap = function(i){
-    if(!knockInputReady) return;
-    const key=$(`signatureKnockPad`)?.querySelector(`[data-i="${i}"]`);
-    if(!key) return;
-    key.classList.add('flash');
-    setTimeout(()=>key.classList.remove('flash'),150);
-    const idx=userSeq.length;
-    userSeq.push(i);
-    if(sequence[idx]!==i){
-      knockInputReady=false;
-      clearInterval(timerInterval);
-      $('signatureKnockPad')?.querySelectorAll('.knock-key').forEach(b=>b.disabled=true);
-      $('signatureKnockStatus').textContent='Not quite — watch the signal again.';
-      setTimeout(()=>{ if($('signatureKnockOverlay')?.classList.contains('show')) startSignatureKnock(); },650);
-      return;
-    }
-    if(userSeq.length===sequence.length){
-      knockInputReady=false;
-      clearInterval(timerInterval);
-      $('signatureKnockPad')?.querySelectorAll('.knock-key').forEach(b=>b.disabled=true);
-      finishPuzzle(true);
-    }
-  };
-
-  /* ---------- 2. Chat input: guaranteed interactive composer ---------- */
-  window.openChat = async function(personId){
-    if(!personId || !currentTargetId || String(personId)!==String(currentTargetId)){
-      showToast('This connection is not active anymore. Send a new Knock.'); return;
-    }
-    currentChatPartner=personId;
-    const panel=$('chatPanel'), msgBox=$('chatMessages'), input=$('chatInput');
-    if(!panel || !input) return;
-    if(msgBox) msgBox.innerHTML='';
-    try{
-      if(USE_BACKEND){
-        const {data}=await sb.from('presence').select('appearance').eq('session_id',personId).single();
-        const a=data?.appearance||{};
-        $('chatWho').textContent='Connected with: '+(a.topColor||'someone')+' '+(a.topType||'').toLowerCase();
-      }else{
-        const p=MOCK_PEOPLE.find(x=>String(x.id)===String(personId));
-        $('chatWho').textContent='Connected with: '+(p?.topColor||'someone')+' '+(p?.topType||'').toLowerCase();
-      }
-    }catch(_e){ $('chatWho').textContent='Connected — say hello.'; }
-    panel.classList.add('show');
-    input.disabled=false; input.readOnly=false; input.hidden=false;
-    input.style.pointerEvents='auto'; input.style.opacity='1'; input.style.visibility='visible';
-    panel.scrollIntoView({behavior:'smooth',block:'center'});
-    setTimeout(()=>{ input.focus({preventScroll:true}); },80);
-  };
-
-  function wireChat(){
-    const input=$('chatInput'), send=$('chatSendBtn');
-    if(!input || !send) return;
-    send.onclick=async e=>{e.preventDefault(); await sendChatMessage(); input.focus({preventScroll:true});};
-    input.onkeydown=e=>{
-      if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); e.stopImmediatePropagation(); sendChatMessage(); }
-    };
-    input.onclick=()=>{ input.focus({preventScroll:true}); };
-  }
-  wireChat();
-
-  /* ---------- 3. Fresh room whenever location/venue changes ---------- */
-  let lastVenue = venueId();
-  let locationResetBusy=false;
-  async function closeOldRoomState(){
-    clearInterval(timerInterval); knockRoundToken++;
-    knockInputReady=false; currentTargetId=null; currentChatPartner=null;
-    knocked.clear(); incomingKnockers.clear(); ignoredKnockers.clear(); knockCount=0;
-    $('chatMessages')?.replaceChildren(); $('chatPanel')?.classList.remove('show');
-    $('signatureKnockOverlay')?.classList.remove('show'); $('signatureMatchOverlay')?.classList.remove('show'); $('iceOverlay')?.classList.remove('show');
-  }
-  async function moveToFreshVenue(oldVenue){
-    if(locationResetBusy) return;
-    const nextVenue=venueId();
-    if(nextVenue===oldVenue) return;
-    locationResetBusy=true;
-    const wasVisible=isVisibleInRoom;
-    try{
-      await closeOldRoomState();
-      if(USE_BACKEND){
-        try{ await ensureAnonymousAuth(); }catch(_e){}
-        if(mySessionId && oldVenue && oldVenue!=='default-venue'){
-          await sb.from('presence').delete().eq('session_id',mySessionId).eq('venue_id',oldVenue);
-        }
-        mySessionId=newRoomSessionId();
-        if(wasVisible && emberAuthUser){
-          const appearance={...selections};
-          const expiresAt=new Date(Date.now()+20*60*1000).toISOString();
-          const result=await sb.from('presence').upsert({session_id:mySessionId,owner_id:emberAuthUser.id,venue_id:nextVenue,appearance,expires_at:expiresAt},{onConflict:'session_id'});
-          if(result.error) throw result.error;
-        }
-      }else{
-        mySessionId=newRoomSessionId();
-      }
-      isVisibleInRoom=wasVisible;
-      lastVenue=nextVenue;
-      $('venueLabel').textContent='Around your current location';
-      await renderRoom();
-      if(wasVisible){
-        setTimeout(()=> $('roomGrid')?.scrollIntoView({behavior:'smooth',block:'start'}),120);
-        showToast('New place selected — fresh room, fresh moment. ✦');
-      }
-    }catch(err){ console.warn('EMBER room reset',err); lastVenue=nextVenue; }
-    finally{ locationResetBusy=false; }
-  }
-  window.emberRefreshVenue=()=>moveToFreshVenue(lastVenue);
-
-  /* Watch browser location continuously so a Google/device location change creates a new room. */
-  if(navigator.geolocation){
-    try{
-      navigator.geolocation.watchPosition(pos=>{
-        const next={lat:pos.coords.latitude,lon:pos.coords.longitude};
-        const before=userCoords;
-        userCoords=next;
-        if(before){ moveToFreshVenue(lastVenue); }
-      },()=>{}, {enableHighAccuracy:true,maximumAge:5000,timeout:15000});
-    }catch(_e){}
-  }
-
-  /* Initialize location on this version (the older file defined initLocation but did not call it). */
-  try{ initLocation(); }catch(_e){}
-
-  /* Heartbeat: active users stay active; abandoned users expire in 20 minutes. */
-  setInterval(()=>{ moveToFreshVenue(lastVenue); },1000);
-
-  setInterval(async()=>{
-    if(!USE_BACKEND || !isVisibleInRoom || !emberAuthUser || !mySessionId) return;
-    const expiresAt=new Date(Date.now()+20*60*1000).toISOString();
-    const result=await sb.from('presence').update({expires_at:expiresAt,created_at:new Date().toISOString()}).eq('session_id',mySessionId).eq('venue_id',venueId());
-    if(!result.error) renderRoom();
-  },5*60*1000);
-
-  /* After becoming visible, take the user directly to the people list. */
-  const save=$('saveBtn');
-  if(save){
-    const oldSave=save.onclick;
-    save.onclick=async function(e){
-      if(oldSave) await oldSave.call(this,e);
-      if(isVisibleInRoom){ setTimeout(()=> $('roomGrid')?.scrollIntoView({behavior:'smooth',block:'start'}),180); }
-    };
-  }
-
-  /* Classic appearance is the default starting point; keep it easy to find. */
-  const builder=$('builderSection');
-  if(builder) builder.classList.add('show');
-})();
-</script>
