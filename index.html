@@ -1308,6 +1308,38 @@ body.meetup-mode #chatEphemeralNote{
   body.meetup-mode #chatSendBtn{flex-basis:68px!important;width:68px!important;}
 }
 </style>
+
+<style id="ember-knock-button-feedback">
+/* Make the room's Knock action feel like a real, responsive button on touchscreens. */
+body.meetup-mode .pcard{
+  transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease!important;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+body.meetup-mode .pcard:active,
+body.meetup-mode .pcard.knock-press{
+  transform:translateY(2px) scale(.985)!important;
+  border-color:#E8672C!important;
+  box-shadow:inset 0 3px 8px rgba(95,43,13,.13),0 0 0 3px rgba(232,103,44,.15)!important;
+}
+body.meetup-mode .pcard .tagline{
+  display:inline-flex!important;align-items:center;justify-content:center;gap:6px;
+  margin-top:12px!important;padding:9px 14px!important;min-height:36px;box-sizing:border-box;
+  border:0!important;border-radius:999px!important;
+  background:linear-gradient(105deg,#FF7A22 0%,#FF4F83 100%)!important;
+  color:#fff!important;font-family:Inter,Arial,sans-serif!important;font-size:12px!important;
+  font-weight:800!important;letter-spacing:.15px!important;
+  box-shadow:0 4px 0 #C94C2A,0 7px 15px rgba(217,90,43,.22)!important;
+  transition:transform .12s ease,box-shadow .12s ease,filter .12s ease!important;
+}
+body.meetup-mode .pcard .tagline::before{content:'✦';font-size:13px;line-height:1;}
+body.meetup-mode .pcard:active .tagline,
+body.meetup-mode .pcard.knock-press .tagline{
+  transform:translateY(3px)!important;box-shadow:0 1px 0 #C94C2A,0 2px 6px rgba(217,90,43,.18)!important;filter:brightness(.96);
+}
+@media(prefers-reduced-motion:reduce){body.meetup-mode .pcard,body.meetup-mode .pcard .tagline{transition:none!important}}
+</style>
+
 </head>
 <body>
 <div class="k-bg-label a"><span>안녕 · HI</span></div>
@@ -2150,6 +2182,10 @@ async function renderRoom(){
       });
     });
     grid.querySelectorAll('.pcard').forEach(card=>{
+      card.addEventListener('pointerdown', ()=>{
+        card.classList.add('knock-press');
+        setTimeout(()=>card.classList.remove('knock-press'),180);
+      }, {passive:true});
       card.addEventListener('click', ()=>{
         const id = card.dataset.id;
         const isIncoming = incomingKnockers.has(id);
